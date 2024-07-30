@@ -1,4 +1,4 @@
-import { prisma } from "@prisma/client";
+import prisma from "../../../prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -12,11 +12,11 @@ const postSchema = z.object({
 export async function POST(request: NextRequest) {
     const body = await request.json();
     const validation = postSchema.safeParse(body);
-    if (!validation) {
-        return NextResponse.json(validation.error.errors, { status: 400 });
-    }
+    console.log('Abhi', validation);
+    if (!validation.success)
+        return NextResponse.json(validation.error, { status: 400 });
     const issue = await prisma.issue.create({
         data: body
-    });
+    }); 
     return NextResponse.json(issue);
 }
