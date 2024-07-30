@@ -1,8 +1,8 @@
 'use client';
 
-import { Button, TextArea, TextField } from '@radix-ui/themes';
+import { Button, TextField } from '@radix-ui/themes';
 import React from 'react';  
-import SimpleMDE from "react-simplemde-editor";
+import dynamic from 'next/dynamic';
 import "easymde/dist/easymde.min.css";
 import { Controller, useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -12,6 +12,9 @@ interface IssueForm {
     title: string;
     description: string;
 }
+
+// Dynamically import SimpleMDE only on the client side
+const SimpleMDE = dynamic(() => import("react-simplemde-editor"), { ssr: false });
 
 const NewIssuePage = () => {
     const router = useRouter();
@@ -25,8 +28,7 @@ const NewIssuePage = () => {
                 router.push('/issues');
             })}
         >
-            <TextField.Root placeholder='Title' {...register('title')}>
-            </TextField.Root>
+            <TextField.Root placeholder='Title' {...register('title')} />
             <Controller
                 name='description'
                 control={control}
