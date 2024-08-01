@@ -24,7 +24,7 @@ const NewIssuePage = () => {
     });
 
     return (
-        <form className='max-w-xl space-y-3' 
+        <form className='max-w-xl space-y-4 mx-auto h-auto' 
             onSubmit={handleSubmit(async (data) => {
                 console.log(data);
                 await axios.post('/api/issues', data);
@@ -32,13 +32,14 @@ const NewIssuePage = () => {
             })}
         >
             <TextField.Root placeholder='Title' {...register('title')} />
-            {errors.title && <Text color='red'>'enter correct title'</Text>}
+            {errors.title && <Text color='red' as='div'>{errors.title.message}</Text>}
             <Controller
                 name='description'
                 control={control}
                 render={({ field }) => <SimpleMDE {...field} />}
             />
-            <Button type="submit">Create</Button>
+            {errors.description && <Text className='' color='red' as='div'>{errors.description.message}</Text>}
+            <Button type="submit" className=''>Create</Button>
         </form>
     );
 };
