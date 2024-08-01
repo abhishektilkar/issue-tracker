@@ -1,12 +1,9 @@
 import prisma from "../../../prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { z } from "zod";
+import { postSchema } from "../../postSchema";
 
 
-const postSchema = z.object({
-    title: z.string().min(1).max(255),
-    description: z.string().min(1)
-});
+
 
 
 export async function POST(request: NextRequest) {
