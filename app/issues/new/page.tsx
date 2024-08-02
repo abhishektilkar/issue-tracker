@@ -39,7 +39,9 @@ const NewIssuePage = () => {
                 render={({ field }) => <SimpleMDE {...field} />}
             />
             {errors.description && <Text className='' color='red' as='div'>{errors.description.message}</Text>}
-            <Button type="submit" className=''>Create</Button>
+            <Button type="submit" className='' disabled={!!(errors.description || errors.title)}>
+                { (errors.description || errors.title) ? 'Disabled' : 'Create'}
+            </Button>
         </form>
     );
 };
